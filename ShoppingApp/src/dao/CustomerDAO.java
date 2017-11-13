@@ -33,6 +33,7 @@ public class CustomerDAO {
 			e.printStackTrace();
 			// TODO: handle exception
 		}
+		
 		return product;
 	}
 

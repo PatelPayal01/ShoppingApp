@@ -1,0 +1,27 @@
+select * from orders where id = 396; 
+select * from ORDERITEM where orderid=396
+select * from PRODUCT where id = 28
+describe product
+SELECT atc.TABLE_NAME,
+       atc.COLUMN_NAME,
+       atc.DATA_TYPE
+FROM  ALL_TAB_COLUMNS atc
+CREATE SEQUENCE seq_cart
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 10;
+
+select * from orders where customerid = 1
+select * from product where  supplierid = 1
+select * from ORDERITEM where productid=1
+
+create table Cart (
+id int ,
+customerid int not null,
+productid int not null,
+unitprice decimal(12,2) not null,
+quantity int not null,
+primary key (id),
+foreign key(customerid) references customer(id),
+foreign key(productid) references product(id))

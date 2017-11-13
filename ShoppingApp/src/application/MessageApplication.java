@@ -8,6 +8,7 @@ import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 import service.CustomerService;
 import service.HelloWorldService;
+import service.ProductService;
 import service.SignUp_LoginService;
 
 
@@ -21,6 +22,7 @@ public class MessageApplication
     singletons.add(new HelloWorldService());
     singletons.add(new SignUp_LoginService());
     singletons.add(new CustomerService());
+    singletons.add(new ProductService());
   }
   
   public Set<Object> getSingletons()

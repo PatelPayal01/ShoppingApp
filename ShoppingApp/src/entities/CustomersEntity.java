@@ -1,12 +1,17 @@
 package entities;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@javax.persistence.Entity
-@javax.persistence.Table(name="Customer")
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="Customer")
 public class CustomersEntity {
-  @javax.persistence.Id
-  @org.hibernate.annotations.GenericGenerator(name="kaugen", strategy="increment")
+  @Id
+  @GenericGenerator(name="kaugen", strategy="increment")
   @GeneratedValue(generator="kaugen")
   private Integer id;
   private String firstName;

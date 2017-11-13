@@ -18,13 +18,13 @@ import dao.HelloDAO;
 @Path("/hello")
 public class HelloWorldService {
 
-	@GET
-	@Path("/rowCount")
-	public Integer rowCount() {
-		HelloDAO helloDAO = Factory.getHelloDAO();
-		Integer rowCount = helloDAO.dataCount();
-		return rowCount;
-	}
+//	@GET
+//	@Path("/rowCount")
+//	public Integer rowCount() {
+//		HelloDAO helloDAO = Factory.getHelloDAO();
+//		Integer rowCount = helloDAO.dataCount();
+//		return rowCount;
+//	}
 
 	@POST
 	@Path("/paginateData")
@@ -40,19 +40,19 @@ public class HelloWorldService {
 		return list;
 	}
 	
-	@POST
-	@Path("/productList")
-	public List<Object> productList(CustomerData customerData) {
-		List<Object> list = null;
-		try {
-			HelloDAO helloDAO = Factory.getHelloDAO();
-			list = new ArrayList<Object>();
-			list = helloDAO.getCustomerData(customerData);
-		} catch (Exception e) {
-
-		}
-		return list;
-	}
+//	@POST
+//	@Path("/productList")
+//	public List<Object> productList(CustomerData customerData) {
+//		List<Object> list = null;
+//		try {
+//			HelloDAO helloDAO = Factory.getHelloDAO();
+//			list = new ArrayList<Object>();
+//			list = helloDAO.getCustomerData(customerData);
+//		} catch (Exception e) {
+//
+//		}
+//		return list;
+//	}
 
 	@POST
 	@Path("/login")

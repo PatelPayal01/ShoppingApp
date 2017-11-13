@@ -5,7 +5,7 @@ import beans.Customers;
 import beans.Login;
 import beans.OrderData;
 import beans.Orders;
-import beans.ProductDesciption;
+import beans.ProductDescription;
 import entities.CustomersEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,13 +55,13 @@ public class HelloDAO {
 		return list;
 	}
 
-	public List<ProductDesciption> getProductfromResultSet(ResultSet resultSet) {
-		List<ProductDesciption> list = null;
+	public List<ProductDescription> getProductfromResultSet(ResultSet resultSet) {
+		List<ProductDescription> list = null;
 
 		try {
 			list = new ArrayList();
 			while (resultSet.next()) {
-				ProductDesciption productDesciption = new ProductDesciption(resultSet.getInt(1), resultSet.getString(2),
+				ProductDescription productDesciption = new ProductDescription(resultSet.getInt(1), resultSet.getString(2),
 						resultSet.getInt(3), resultSet.getFloat(4), resultSet.getString(5));
 				list.add(productDesciption);
 
@@ -75,7 +75,7 @@ public class HelloDAO {
 	public List<Object> getCustomerData(CustomerData customerData) {
 		List<Object> list = new ArrayList<>();
 		List<Customers> customerList = null;
-		List<ProductDesciption> pList = null;
+		List<ProductDescription> pList = null;
 		try {
 			Connection connection = makeConnection();
 			String custOrProd = customerData.getCustOrProd();

@@ -1,6 +1,6 @@
 select * from orders where id = 396; 
 select * from ORDERITEM where orderid=396
-select * from PRODUCT where id = 28
+select * from PRODUCT
 describe product
 SELECT atc.TABLE_NAME,
        atc.COLUMN_NAME,

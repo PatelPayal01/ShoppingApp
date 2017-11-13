@@ -2,7 +2,7 @@ package dao;
 
 import beans.OrderData;
 import beans.OrderItem;
-import beans.ProductDesciption;
+import beans.ProductDescription;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +14,8 @@ public class CustomerDAO {
 	public CustomerDAO() {
 	}
 
-	public ProductDesciption getProductDescription(OrderData orderData) {
-		ProductDesciption product = null;
+	public ProductDescription getProductDescription(OrderData orderData) {
+		ProductDescription product = null;
 		try {
 			Connection connection = HelloDAO.makeConnection();
 
@@ -26,7 +26,7 @@ public class CustomerDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				product = new ProductDesciption(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+				product = new ProductDescription(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
 													resultSet.getFloat(4), resultSet.getString(5));
 			}
 		} catch (Exception e) {

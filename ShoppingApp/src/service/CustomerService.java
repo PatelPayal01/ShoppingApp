@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import Factory.Factory;
 import beans.OrderData;
 import beans.OrderItem;
-import beans.ProductDesciption;
+import beans.ProductDescription;
 import dao.CustomerDAO;
 
 @Path("/customer")
@@ -31,8 +31,8 @@ public class CustomerService {
 	
 	@POST
 	@Path("/productDescription")
-	public ProductDesciption getProductDescription(OrderData orderData){
-		ProductDesciption product =null;
+	public ProductDescription getProductDescription(OrderData orderData){
+		ProductDescription product =null;
 		try{
 			CustomerDAO customerDAO = Factory.getCustomerDAO();
 			product = customerDAO.getProductDescription(orderData);

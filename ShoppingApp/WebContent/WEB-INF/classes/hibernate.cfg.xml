@@ -14,6 +14,11 @@
 		<property name="connection.password">123</property>
 		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		<mapping class="entities.CustomersEntity" />
+		<mapping class="entities.CartEntity" />
+		<mapping class="entities.ProductEntity" />
+		<mapping class="entities.OrderItemEntity" />
+		<mapping class="entities.OrderEntity" />
+		<mapping class="entities.SupplierEntity" />
 	</session-factory>
 
 </hibernate-configuration>

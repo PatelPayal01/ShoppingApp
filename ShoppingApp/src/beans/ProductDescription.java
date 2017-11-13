@@ -1,6 +1,6 @@
 package beans;
 
-public class ProductDesciption {
+public class ProductDescription {
 	private Integer id;
 	private String productName;
 	private float unitPrice;
@@ -8,7 +8,7 @@ public class ProductDesciption {
 	private char isDiscontinued;
 	private Integer supplierId;
 	
-	public ProductDesciption(Integer id,String productName,Integer supplierId ,float unitPrice,String packageAvailable){
+	public ProductDescription(Integer id,String productName,Integer supplierId ,float unitPrice,String packageAvailable){
 		this.id = id;
 		this.packageAvailable = packageAvailable;
 		this.productName = productName;

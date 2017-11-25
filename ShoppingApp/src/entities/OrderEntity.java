@@ -3,20 +3,23 @@ package entities;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity
+@Table(name="Orders")
 public class OrderEntity {
 	@Id
 	@GenericGenerator(name = "kaugen", strategy = "increment")
 	@GeneratedValue(generator = "kaugen")
 	private Integer id;
 	private Calendar orderDate;
-	private Integer customerid;
 	private float totalAmount;
 	private String OrderNumber;
 	
@@ -48,14 +51,7 @@ public class OrderEntity {
 		this.orderDate = orderDate;
 	}
 
-	public Integer getCustomerid() {
-		return customerid;
-	}
-
-	public void setCustomerid(Integer customerid) {
-		this.customerid = customerid;
-	}
-
+	
 	public float getTotalAmount() {
 		return totalAmount;
 	}

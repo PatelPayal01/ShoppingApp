@@ -4,7 +4,6 @@ import beans.SignUpData;
 import entities.CustomersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public class SignUp_LoginDAO
@@ -14,8 +13,16 @@ public class SignUp_LoginDAO
   public String signUp(SignUpData signUpData)
   {
     String message = "Something went wrong.Please try again later";
+    final SessionFactory factory;
     try
     {
+    	
+    	
+    	factory = ((AnnotationConfiguration) new AnnotationConfiguration().
+                configure()).addAnnotatedClass(CustomersEntity.class).
+                buildSessionFactory();
+         System.out.println("SIGGGGNNNNNN UPPPPPP DAOOOOOOOO");
+        
       CustomersEntity customerEntity = new CustomersEntity();
       customerEntity.setId(Integer.valueOf(1000));
       customerEntity.setFirstName(signUpData.getFirstName());
@@ -26,8 +33,8 @@ public class SignUp_LoginDAO
       customerEntity.setPassword(signUpData.getPassword());
       customerEntity.setUsername(signUpData.getFirstName() + "_" + signUpData.getLastName());
       
-      SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-      Session session = sessionFactory.openSession();
+//      SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+      Session session = factory.openSession();
       session.beginTransaction();
       Integer id = (Integer)session.save(customerEntity);
       session.getTransaction().commit();
@@ -37,6 +44,7 @@ public class SignUp_LoginDAO
         message = "Sign Up Successfull \n Username is firtsName_LastName";
       }
     } catch (Exception e) {
+    	System.out.println("ERRRROOORRRR");
       e.printStackTrace();
     }
     return message;

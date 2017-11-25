@@ -11,11 +11,16 @@ MINVALUE 1
 START WITH 1
 INCREMENT BY 1
 CACHE 10;
-
+SELECT * FROM USER_INDEXES WHERE TABLE_NAME='cart';
+ALTER INDEX "PK_B" RENAME TO "PK_XYZ";
+select * from CUSTOMER
+delete from CUSTOMER where id >=92
+select * from 
 select * from orders where customerid = 1
 select * from product where  supplierid = 1
 select * from ORDERITEM where productid=1
-
+select * from Cart
+ drop table cart
 create table Cart (
 id int ,
 customerid int not null,

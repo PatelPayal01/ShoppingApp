@@ -1,14 +1,19 @@
 package entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity
+@Table(name="Product")
 public class ProductEntity {
 
 	@Id
@@ -16,13 +21,21 @@ public class ProductEntity {
 	@GeneratedValue(generator = "kaugen")
 	private Integer id;
 	private String productName;
-	private Integer supplierId;
 	private Float unitPrice;
-	private String packages;
 	private char isDiscontinued;
+	@Column(name = "package")
+	private String packages;
 
 	
 	
+	public String getPackages() {
+		return packages;
+	}
+
+	public void setPackages(String packages) {
+		this.packages = packages;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "supplierid")
 	private SupplierEntity supplierEntity;
@@ -43,13 +56,7 @@ public class ProductEntity {
 		this.productName = productName;
 	}
 
-	public Integer getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(Integer supplierId) {
-		this.supplierId = supplierId;
-	}
+	
 
 	public Float getUnitPrice() {
 		return unitPrice;
@@ -59,13 +66,6 @@ public class ProductEntity {
 		this.unitPrice = unitPrice;
 	}
 
-	public String getPackages() {
-		return packages;
-	}
-
-	public void setPackages(String packages) {
-		this.packages = packages;
-	}
 
 	public char getIsDiscontinued() {
 		return isDiscontinued;

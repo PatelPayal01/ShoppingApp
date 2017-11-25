@@ -1,22 +1,24 @@
 package entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+@Entity
+@Table(name="OrderItem")
 public class OrderItemEntity {
 
 	@Id
 	@GenericGenerator(name = "kaugen", strategy = "increment")
 	@GeneratedValue(generator = "kaugen")
 	private Integer id;
-	private Integer orderid;
-	private Integer productid;
 	private float unitPrice;
 	private Integer quantity;
 	
@@ -55,20 +57,14 @@ public class OrderItemEntity {
 		this.id = id;
 	}
 
-	public Integer getOrderid() {
-		return orderid;
+	
+
+	public ProductEntity getProduct() {
+		return product;
 	}
 
-	public void setOrderid(Integer orderid) {
-		this.orderid = orderid;
-	}
-
-	public Integer getProductid() {
-		return productid;
-	}
-
-	public void setProductid(Integer productid) {
-		this.productid = productid;
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
 
 	public float getUnitPrice() {

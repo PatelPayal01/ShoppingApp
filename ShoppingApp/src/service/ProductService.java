@@ -25,5 +25,19 @@ public class ProductService {
 		}
 		return r;
 	}
-
+	
+	@POST
+	@Path("/productsInCart")
+	public Integer productsInCart(Cart cart){
+		Integer count = 0;
+		try{
+			ProductDAO p = Factory.getProductDAO();
+			 count = p.productsInCart(cart);
+		}
+		
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return count;
+	}
 }

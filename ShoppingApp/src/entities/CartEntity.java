@@ -1,8 +1,11 @@
 package entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -16,10 +19,34 @@ public class CartEntity {
 	@GenericGenerator(name = "kaugen", strategy = "increment")
 	@GeneratedValue(generator = "kaugen")
 	private int id;
-	private int customerid;
-	private int productid;
 	private float unitprice;
 	private int quantity;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customerid")
+	private CustomersEntity customer;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "productid")
+	private ProductEntity product;
+	
+	public CustomersEntity getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomersEntity customer) {
+		this.customer = customer;
+	}
+
+	public ProductEntity getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductEntity product) {
+		this.product = product;
+	}
+
+	
 
 	public int getId() {
 		return id;
@@ -29,21 +56,6 @@ public class CartEntity {
 		this.id = id;
 	}
 
-	public int getCustomerid() {
-		return customerid;
-	}
-
-	public void setCustomerid(int customerid) {
-		this.customerid = customerid;
-	}
-
-	public int getProductid() {
-		return productid;
-	}
-
-	public void setProductid(int productid) {
-		this.productid = productid;
-	}
 
 	public float getUnitprice() {
 		return unitprice;

@@ -24,9 +24,22 @@ select * from Cart
 create table Cart (
 id int ,
 customerid int not null,
+
 productid int not null,
 unitprice decimal(12,2) not null,
 quantity int not null,
 primary key (id),
 foreign key(customerid) references customer(id),
 foreign key(productid) references product(id))
+
+create table Cart (
+id int ,
+customerid int not null,
+cartcontent varchar2(500),
+productid int not null,
+unitprice decimal(12,2) not null,
+quantity int not null,
+primary key (id),
+foreign key(customerid) references customer(id),
+foreign key(productid) references product(id))
+

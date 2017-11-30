@@ -1,10 +1,13 @@
 package service;
 
+import java.util.List;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 import Factory.Factory;
 import beans.Cart;
+import beans.CartContent;
 import beans.ProductDescription;
 import beans.ReplyMessage;
 import dao.ProductDAO;
@@ -14,7 +17,7 @@ public class ProductService {
 	
 	@POST
 	@Path("/addProductToCart")
-	public ReplyMessage addProductToCart(Cart cart){
+	public ReplyMessage addProductToCart(CartContent cart){
 		ReplyMessage r = null;
 		try {
 			ProductDAO p = Factory.getProductDAO();
@@ -26,18 +29,18 @@ public class ProductService {
 		return r;
 	}
 	
-	@POST
-	@Path("/productsInCart")
-	public Integer productsInCart(Cart cart){
-		Integer count = 0;
-		try{
-			ProductDAO p = Factory.getProductDAO();
-			 count = p.productsInCart(cart);
-		}
-		
-		catch (Exception e) {
-			// TODO: handle exception
-		}
-		return count;
-	}
+//	@POST
+//	@Path("/getCartContent")
+//	public Integer productsInCart(Cart cart){
+//		Integer count = 0;
+//		try{
+//			ProductDAO p = Factory.getProductDAO();
+//			 count = p.productsInCart(cart);
+//		}
+//		
+//		catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return count;
+//	}
 }

@@ -1,0 +1,62 @@
+<style type="text/css">
+  .tg {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .tg td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+  }
+
+  .tg th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    word-break: normal;
+  }
+
+  .tg .tg-e3zv {
+    font-weight: bold
+  }
+
+  .tg .tg-9hbo {
+    font-weight: bold;
+    vertical-align: top
+  }
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-e3zv">ProductId</th>
+    <th class="tg-9hbo">Unit Price</th>
+    <th class="tg-9hbo">Quantity</th>
+  </tr>
+  <tr *ngFor="let orderitems of _customerservice.orderitems">
+    <a (click)="getProductDescription(orderitems.productId)">
+      <td>{{orderitems.productId}}</td>
+    </a>
+
+    <td>{{orderitems.unitPrice}}</td>
+    <td>{{orderitems.quantity}}</td>
+  </tr>
+</table>
+
+<!-- <button (click)="goBack()">Back</button> -->
+<button [routerLink]="['/customer/orderdetails',_appservice.customer.id]">BACK</button>
+<button [routerLink]="['/customer']">Go to home</button>
+
+<div *ngIf="_customerservice.isproductDescription">
+  <div>
+    <h3>Product Description</h3>
+  </div>
+  Name : {{_customerservice.product.productName}} UnitPrice : {{_customerservice.product.unitPrice}} Packages Available : {{_customerservice.product.packageAvailable}}
+</div>

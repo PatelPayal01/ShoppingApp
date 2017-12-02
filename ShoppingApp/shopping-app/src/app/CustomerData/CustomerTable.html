@@ -1,0 +1,92 @@
+<div class="container">
+    <!-- PageSize -->
+    <span>
+            <button (click)="setPageSize(10)">10</button>
+            <button (click)="setPageSize(25)">25</button>
+            <button (click)="setPageSize(50)">50</button>
+            <button (click)="setPageSize(100)">100</button>
+        </span>
+    <!-- pager -->
+    <span>
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+
+            <button [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)">First</a>
+                </button>
+
+            <button [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </button>
+
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <button><a (click)="setPage(page)">{{page}}</a></button>
+            </li>
+
+            <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </button>
+
+            <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)">Last</a>
+                </button>
+
+        </ul>
+        </span>
+    <div>
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of pagedItems ; let i = index">
+                    <td>{{item.firstName | Capitalise}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.country}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- PageSize -->
+    <span>
+                <button (click)="setPageSize(10)">10</button>
+                <button (click)="setPageSize(25)">25</button>
+                <button (click)="setPageSize(50)">50</button>
+                <button (click)="setPageSize(100)">100</button>
+            </span>
+    <!-- pager -->
+    <span>
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+
+                <button [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">First</a>
+                    </button>
+
+                <button [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                    </button>
+
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <button><a (click)="setPage(page)">{{page}}</a></button>
+                </li>
+
+                <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                    </button>
+
+                <button [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Last</a>
+                    </button>
+
+            </ul>
+            </span>
+</div>
+
+

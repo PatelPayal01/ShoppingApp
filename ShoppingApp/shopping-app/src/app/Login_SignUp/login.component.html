@@ -1,0 +1,98 @@
+Login Component
+<div *ngIf="!_appservice.isProductsDisplay">
+    <h1 class="heading">Go Shopping Unlimited</h1>
+    <div id="login-box">
+
+        <div class="left container">
+            <h1>Sign up</h1>
+
+            <form (ngSubmit)="signUp(signupForm.value)" #signupForm="ngForm">
+
+                <div class="form-group">
+                    <input type="text" name="firstname" [(ngModel)]="signupData.firstName" class="form-control" #firstname="ngModel" placeholder="FirstName"
+                        #firstname="ngModel" minlength="4" maxlength="10" required />
+                    <div *ngIf="firstname.errors && (firstname.dirty || firstname.touched)">
+                        <div [hidden]="!firstname.errors.required" class="alert alert-danger">
+                            FirstName is required
+                        </div>
+                        <div [hidden]="!firstname.errors.minlength" class="alert alert-danger">
+                            FirstName should have atleast 4 and maximum characters
+                        </div>
+                        <!-- <div [hidden]="!firstname.errors.maxlength">
+                            FirstName can have maximum 10 characters
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="lastname" #lastname="ngModel" minlength="4" maxlength="10" [(ngModel)]="signupData.lastName" class="form-control"
+                        placeholder="LastName" required/>
+                    <div [hidden]="lastname.pristine || !lastname.errors.required" class="alert alert-danger">
+                        lastname is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" #city="ngModel" [(ngModel)]="signupData.city" class="form-control" placeholder="City" required
+                    />
+                    <div [hidden]="city.pristine || !city.errors.required" class="alert alert-danger">
+                        city is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="country" #country="ngModel" [(ngModel)]="signupData.country" class="form-control" placeholder="Country"
+                        required />
+                    <div [hidden]=" country.pristine || !country.errors.required" class="alert alert-danger">
+                        country is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" #phone="ngModel" pattern="^[1-9][0-9]{9}$" name="phone" [(ngModel)]="signupData.phone" class="form-control"
+                        placeholder="Phone" required size="10" />
+                    <div *ngIf="phone.errors && (phone.dirty || phone.touched)">
+                        <div [hidden]="!phone.errors.required || phone.pristine" class="alert alert-danger">
+                            phone is required
+                        </div>
+                        <div [hidden]="!phone.errors.pattern" class="alert alert-danger">
+                            Phone number should not start with 0 and should be of 10 digit
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" #password1="ngModel" name="password" [(ngModel)]="signupData.password" class="form-control" placeholder="Password"
+                        required/>
+                </div>
+                <div [hidden]="password1.pristine  || !password1.errors.required" class="alert alert-danger">
+                    password is required
+                </div>
+                {{signupData.password}}
+                <div class="form-group">
+                    <input type="password" name="confirmpassword" #cpassword="ngModel" class="form-control" placeholder="Retype password" (ngModelChange)="matchPassword($event)"
+                        ngModel required/> {{cpassword.value}}
+                </div>
+
+                <div *ngIf="!isMatching && !cpassword.pristine">
+                    Password fields not matching
+
+                </div>
+
+                <button type="submit" [disabled]="!signupForm.form.valid || !isMatching" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+
+        <div class="right">
+            <form #loginform="ngForm">
+                <span class="loginwith">Login</span>
+                <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required class="form-control" (keyup.enter)="login()">
+                <input type="password" name="loginpassword" [(ngModel)]="password" placeholder="Password" required class="form-control" (keyup.enter)="login()">
+                <div *ngIf="isUnsuccessfullLogin">{{_appservice.customer.message}}</div>
+                <button class="btn btn-success btn-md " (click)="login()" [disabled]="!loginform.form.valid">Login</button>
+            </form>
+        </div>
+
+        <div class="or">OR</div>
+
+
+    </div>
+</div>
+Login outlet

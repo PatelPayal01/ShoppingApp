@@ -1,0 +1,28 @@
+<h1>Cart</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Packages</th>
+            <th>Quantity</th>
+            <th>SubTotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of _appservice.cartContent; let i = index">
+            <td>{{item._productId}}</td>
+            <td>{{item._productName}}</td>
+            <td>{{item._unitPrice}}</td>
+            <td>{{item._packages}}</td>
+            <td>
+                <input (ngModelChange)="updateSubTotal(i,item._unitPrice,$event)" [(ngModel)]="item._quantity" type="number" min="1" max="5">
+            </td>
+            <td>{{subtotalArray[i] == undefined ? item._unitPrice : subtotalArray[i]}}</td>
+        </tr>
+    </tbody>
+</table>
+<div>Total Cost :{{totalCost}}</div>
+<div><button class="btn btn-warning" (click) = "buy()"> Buy Now</button></div>

@@ -1,0 +1,14 @@
+Customer Details Component
+
+<div *ngIf = "!_appservice.isProductsDisplay">
+<div> <h3> Customer Details</h3></div>
+    <!-- <div>{{_appservice.customer.id}}</div> -->
+    <div>FirstName :{{_appservice.customer.firstName}}</div>
+    <div>LastName : {{_appservice.customer.lastName}}</div>
+    <div>City : {{_appservice.customer.city}}</div>
+    <div>Country : {{_appservice.customer.country}}</div>
+    <div>Contact : {{_appservice.customer.phone}}</div>
+
+
+<button (click)="gotoCustomer()">Back</button>
+</div>

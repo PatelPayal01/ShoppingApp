@@ -1,0 +1,118 @@
+<div class="container">
+    <!-- PageSize -->
+    <div> Products to be displayed on a page
+        
+        <a (click)="setPageSize(10)">10</a>
+        <a (click)="setPageSize(25)">25</a>
+        <a (click)="setPageSize(50)">50</a>
+        <a (click)="setPageSize(100)">100</a>
+    
+    </div>
+    <!-- pager -->
+    <div class="text-right">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" (click)="setPage(1)">First</a>
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" (click)="setPage(pager.currentPage - 1)">
+                    <span>&laquo;</span>
+                    <!-- <span class="sr-only">Previous</span> -->
+                </a>
+            </li>
+
+            <li class="page-item " *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+
+                <a class="page-link" (click)="setPage(page)">{{page}}</a>
+
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" (click)="setPage(pager.currentPage + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <!-- <span class="sr-only">Next</span> -->
+                </a>
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class = "table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ProductName</th>
+                    <th>Unit Price</th>
+                    <th>Packages</th>
+                    <th>Buy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of pagedItems ; let i = index">
+                    <!-- <td>{{item.productName | Capitalise}}</td> -->
+                    <td>{{item.productName}}</td>
+                    <td>{{item.unitPrice}}</td>
+                    <td>{{item.packageAvailable}}</td>
+                    <td>
+                        <a (click)="addProductToCart(item.id,item.productName,item.unitPrice,item.packageAvailable,this._appService.isLogin)">Add to Cart</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- PageSize -->
+    <div> Products to be displayed on a page
+        
+        <a (click)="setPageSize(10)">10</a>
+        <a (click)="setPageSize(25)">25</a>
+        <a (click)="setPageSize(50)">50</a>
+        <a (click)="setPageSize(100)">100</a>
+    
+    </div>
+    <!-- pager -->
+    <div class="text-right">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" (click)="setPage(1)">First</a>
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" (click)="setPage(pager.currentPage - 1)">
+                    <span>&laquo;</span>
+                    <!-- <span class="sr-only">Previous</span> -->
+                </a>
+            </li>
+
+            <li class="page-item " *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+
+                <a class="page-link" (click)="setPage(page)">{{page}}</a>
+
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" (click)="setPage(pager.currentPage + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <!-- <span class="sr-only">Next</span> -->
+                </a>
+            </li>
+
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<!-- <router-outlet></router-outlet> -->
+<!-- <div>
+    <select [(ngModel)]="sortByForProduct" (change) = "setPage(1)">{{orderdatalist}}
+        <option *ngFor ="let item of sortByListForProduct" >{{item}}</option>
+    </select>
+</div> -->

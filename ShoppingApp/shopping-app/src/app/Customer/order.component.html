@@ -1,0 +1,31 @@
+<router-outlet></router-outlet>
+<div>OrderDetails</div>
+<div *ngIf = "!_appservice.isProductsDisplay">
+  <!-- <style type="text/css">
+    
+  </style> -->
+  <table class="tg">
+    <tr>
+      <th class="tg-e3zv">OrderId</th>
+      <th class="tg-9hbo">CustomerId</th>
+      <th class="tg-9hbo">Order Date</th>
+      <th class="tg-9hbo">Order Number</th>
+      <th class="tg-9hbo">Total Amount</th>
+      <th class="tg-9hbo">View Ordered Items</th>
+    </tr>
+    <tr *ngFor="let orders of _appservice.ordersOfCustomer">
+      <td>{{orders.id}}</td>
+      <td>{{orders.customerId}}</td>
+      <td>{{orders.orderDate}}</td>
+      <td>{{orders.orderNumber}}</td>
+      <td>{{orders.totalAmount}}</td>
+      <td>
+        <a (click)="navigate(orders.id)">click here</a>
+      </td>
+    </tr>
+  </table>
+  <!-- <div *ngIf = "message">{{_appservice.ordersOfCustomer.message}}</div> -->
+  <button (click)="gotoCustomer()">Back</button>
+</div>
+
+<!-- routerLink="['./orderitems']" routerLinkActive="active" -->

@@ -8,7 +8,6 @@ import { ExamplePipe } from './app.examplepipe';
 import { CustomerViewComponent } from './CustomerData/CustomerViewComponent';
 import { Router } from '@angular/router';
 import { ProductComponent } from './ProductList/product.component';
-// import { FilterName} from './StringFilterPipe';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
   @ViewChild(ProductComponent) productComponent;
 
   isRefresh: boolean = false;
-  // isenableRouterOutlet: boolean = false;
   isLoginOrSignUp: boolean = false;
   parentSortByForCustomer: string = "firstName";
   sortByListForCustomer = ['FirstName', 'LastName', 'Phone', 'City', 'Country'];
@@ -37,23 +35,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.router.navigate([''])
     this.isRefresh = false;
-    if(sessionStorage.getItem("username") == null){
-      if(isNaN(parseInt(sessionStorage.getItem("noOfProductsInCart")))){
+    if (sessionStorage.getItem("username") == null) {
+      if (isNaN(parseInt(sessionStorage.getItem("noOfProductsInCart")))) {
 
       }
-      else{
+      else {
         this._appservice.productCountInCart = parseInt(sessionStorage.getItem("noOfProductsInCart"));
-        this._appservice.cartContent =JSON.parse(sessionStorage.getItem("productsInCart"));
+        this._appservice.cartContent = JSON.parse(sessionStorage.getItem("productsInCart"));
       }
     }
-    else{
+    else {
       this._appservice.numberofProductsInCart(this._appservice.customer.id).subscribe(
         response => {
-          console.log(""+response);
-          
+          console.log("" + response);
+
           this._appservice.productCountInCart = response;
         }
       )
@@ -64,7 +62,7 @@ export class AppComponent implements OnInit {
   }
   LoginorSignUp() {
     document.getElementById("login").innerHTML = "";
-    
+
     this.isLoginOrSignUp = true;
     this._appservice.isProductsDisplay = false;
     this.router.navigate(['/login'])
@@ -73,7 +71,7 @@ export class AppComponent implements OnInit {
   // From customer component
   navigateToCustomerDetails() {
     console.log("DETAILS");
-    
+
     this.ismouseenter = false;
     this._appservice.isProductsDisplay = false;
     this._appservice.isCustomerDetails = true;
@@ -81,7 +79,7 @@ export class AppComponent implements OnInit {
   }
   navigateToOrderDetails(id) {
     console.log("ORDER");
-    
+
     this.ismouseenter = false;
     this._appservice.isProductsDisplay = false;
     this._appservice.isCustomerOrderDetails = true;
@@ -112,11 +110,11 @@ export class AppComponent implements OnInit {
     this._appservice.isProductsDisplay = true;
   }
 
-  goToCart(){
-    
+  goToCart() {
+
     this._appservice.isProductsDisplay = false;
     this.router.navigate(['/cart']);
   }
-  
+
 
 }

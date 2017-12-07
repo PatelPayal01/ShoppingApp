@@ -14,32 +14,32 @@ import { CartComponent } from './Cart/cart.componet';
 const routes: Routes = [
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent, pathMatch: 'full'
     },
     {
         path: 'customer',
-        component: CustomerComponent
+        component: CustomerComponent, pathMatch: 'full'
 
     },
     {
         path: 'customerdetails',
-        component: CustomerDetailsComponent
+        component: CustomerDetailsComponent, pathMatch: 'full'
 
     },
     {
 
         path: 'orderdetails/:id',
-        component: OrderDetailsComponent,
+        component: OrderDetailsComponent, pathMatch: 'full'
 
 
     },
     {
         path: 'orderitems/:id',
-        component: OrderItemComponent
+        component: OrderItemComponent, pathMatch: 'full'
     },
     {
-        path : 'cart',
-        component:CartComponent
+        path: 'cart',
+        component: CartComponent, pathMatch: 'full'
     }
 
 

@@ -3,15 +3,15 @@ export class Cart {
     private _productName: string;
     private _unitPrice: number;
     private _packages: string;
-    private _customerId: number;
+    // private _customerId: number;
     private _quantity: number;
 
-    constructor(_productId, _productName, _unitPrice, _packages, _customerId, _quantity) {
+    constructor(_productId, _productName, _unitPrice, _packages, _quantity) {
         this._productId = _productId;
         this._productName = _productName;
         this._unitPrice = _unitPrice;
         this._packages = _packages;
-        this._customerId = _customerId;
+        // this._customerId = _customerId;
         this._quantity = _quantity;
     }
 
@@ -19,9 +19,9 @@ export class Cart {
         return this._productId
     }
 
-    public get customerId(): number {
-        return this._customerId
-    }
+    // public get customerId(): number {
+    //     return this._customerId
+    // }
 
     public get productName(): string {
         return this._productName
@@ -39,9 +39,9 @@ export class Cart {
         return this._quantity
     }
 
-    public set customerId(value: number) {
-        this._customerId = value;
-    }
+    // public set customerId(value: number) {
+    //     this._customerId = value;
+    // }
 
     public set productId(value: number) {
         this._productId = value;

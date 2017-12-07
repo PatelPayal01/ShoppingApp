@@ -31,11 +31,11 @@ export class AppService {
 
     }
 
-    numberofProductsInCart(customerId) {
-        const url = 'http://localhost:8180/ShoppingApp/api/products/productsInCart/';
+    // numberofProductsInCart(customerId) {
+    //     const url = 'http://localhost:8180/ShoppingApp/api/products/productsInCart/';
 
-        return this._http.post(url, {customerId }).map(res => res.json());
-    }
+    //     return this._http.post(url, {customerId }).map(res => res.json());
+    // }
 
     getCustomerList(custOrProd: string, startIndex: number, endIndex: number, sortByForCustomer: string) {
         const url = 'http://localhost:8180/ShoppingApp/api/hello/paginateData/';

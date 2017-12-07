@@ -1,13 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { AppService } from './app.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-import * as _ from 'underscore';
-import { ExamplePipe } from './app.examplepipe';
 import { CustomerViewComponent } from './CustomerData/CustomerViewComponent';
 import { Router } from '@angular/router';
 import { ProductComponent } from './ProductList/product.component';
+import { CartService } from './Cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -31,11 +29,10 @@ export class AppComponent implements OnInit {
   sortByListForProduct = ["ProductName", "UnitPrice"];
 
 
-  constructor(private router: Router, private _appservice: AppService) {
+  constructor(private router: Router, private _appservice: AppService ,private _cartservice :CartService) {
   }
 
   ngOnInit() {
-
     this.router.navigate([''])
     this.isRefresh = false;
     if (sessionStorage.getItem("username") == null) {
@@ -43,16 +40,16 @@ export class AppComponent implements OnInit {
 
       }
       else {
-        this._appservice.productCountInCart = parseInt(sessionStorage.getItem("noOfProductsInCart"));
+        // this._appservice.productCountInCart = parseInt(sessionStorage.getItem("noOfProductsInCart"));
         this._appservice.cartContent = JSON.parse(sessionStorage.getItem("productsInCart"));
+        this._appservice.productCountInCart = this._appservice.cartContent.length;
       }
     }
     else {
-      this._appservice.numberofProductsInCart(this._appservice.customer.id).subscribe(
-        response => {
-          console.log("" + response);
-
-          this._appservice.productCountInCart = response;
+      console.log("In App Component when logged in")
+      this._cartservice.getCartContent(1).subscribe(
+        result =>{
+          console.log(result)
         }
       )
     }

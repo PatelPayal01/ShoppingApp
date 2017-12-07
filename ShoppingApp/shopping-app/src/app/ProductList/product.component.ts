@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit {
   // paged items
   pagedItems: any[];
 
-  constructor(private router: Router, private _appService: AppService, private pagerService: PagerService, private _carservice: CartService) {
+  constructor(private router: Router, private _appService: AppService, private pagerService: PagerService, private _cartservice: CartService) {
 
   }
 
@@ -64,15 +64,15 @@ export class ProductComponent implements OnInit {
     this._appService.productCountInCart += 1;
     this.cartIndex += 1;
     if (loggedIn == false) {
-      this.cart = new Cart(productId, productName, price, packages, null, 1);
+      this.cart = new Cart(productId, productName, price, packages, 1);
       this._appService.cartContent.push(this.cart);
       sessionStorage.setItem("productsInCart", JSON.stringify(this._appService.cartContent));
       sessionStorage.setItem("noOfProductsInCart", "" + this._appService.productCountInCart)
     }
     else {
-      this.cart = new Cart(productId, productName, price, packages, this._appService.customer.id, 1);
+      this.cart = new Cart(productId, productName, price, packages, 1);
       this._appService.cartContent.push(this.cart);
-      this._carservice.addProductToCart(this._appService.cartContent).subscribe(
+      this._cartservice.addProductToCart(this._appService.cartContent,this._appService.customer.id).subscribe(
         result => {
           console.log(result);
         })

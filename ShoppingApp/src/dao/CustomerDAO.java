@@ -3,6 +3,7 @@ package dao;
 import beans.OrderData;
 import beans.OrderItem;
 import beans.ProductDescription;
+import connection.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +11,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO {
+public class CustomerDAO extends DBConnection {
 	public CustomerDAO() {
 	}
 
 	public ProductDescription getProductDescription(OrderData orderData) {
 		ProductDescription product = null;
 		try {
-			Connection connection = HelloDAO.makeConnection();
+			Connection connection = makeConnection();
 
 			String query = "select * from product where id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -40,7 +41,7 @@ public class CustomerDAO {
 	public List<OrderItem> getOrderItems(OrderData orderData) {
 		List<OrderItem> list = null;
 		try {
-			Connection connection = HelloDAO.makeConnection();
+			Connection connection = makeConnection();
 
 			String query = "select * from orderitem where orderid = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);

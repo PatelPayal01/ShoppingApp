@@ -14,33 +14,33 @@ import dao.ProductDAO;
 
 @Path("/products")
 public class ProductService {
-	
+
 	@POST
 	@Path("/addProductToCart")
-	public ReplyMessage addProductToCart(CartContent cart){
+	public ReplyMessage addProductToCart(CartContent cart) {
 		ReplyMessage r = null;
 		try {
 			ProductDAO p = Factory.getProductDAO();
-			r = p.addProductToCart(cart); 
-			
+			r = p.addProductToCart(cart);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return r;
 	}
-	
-//	@POST
-//	@Path("/getCartContent")
-//	public Integer productsInCart(Cart cart){
-//		Integer count = 0;
-//		try{
-//			ProductDAO p = Factory.getProductDAO();
-//			 count = p.productsInCart(cart);
-//		}
-//		
-//		catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return count;
-//	}
+
+	@POST
+	@Path("/getCartContent")
+	public List<Object> productsInCart(Cart cart) {
+		List<Object> cartContent = null;
+		try {
+			ProductDAO p = Factory.getProductDAO();
+			cartContent = p.getProductsInCart(cart);
+		}
+
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return cartContent;
+	}
 }

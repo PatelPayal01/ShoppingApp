@@ -6,6 +6,7 @@ import beans.Login;
 import beans.OrderData;
 import beans.Orders;
 import beans.ProductDescription;
+import connection.DBConnection;
 import entities.CustomersEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,19 +20,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-public class HelloDAO {
+public class HelloDAO  extends DBConnection{
 	public HelloDAO() {
 	}
 
-	public static Connection makeConnection()
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		String username = "testuser";
-		String psswd = "123";
-		Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-		Connection connect = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", username, psswd);
-
-		return connect;
-	}
 
 	public List<Customers> getCustomerfromResultSet(ResultSet resultSet) {
 		List<Customers> list = null;

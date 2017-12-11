@@ -1,14 +1,21 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 public class CartContent implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private List<Cart> cart;
+	private ArrayList<Cart> cart;
 	private Integer customerId;
-	
-	
+	private Integer quantity;
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
 	public Integer getCustomerId() {
 		return customerId;
@@ -18,11 +25,11 @@ public class CartContent implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public List<Cart> getCart() {
+	public ArrayList<Cart> getCart() {
 		return cart;
 	}
 
-	public void setCart(List<Cart> cart) {
+	public void setCart(ArrayList<Cart> cart) {
 		this.cart = cart;
 	}
 

@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import Factory.Factory;
 import beans.Cart;
 import beans.CartContent;
-import beans.ProductDescription;
 import beans.ReplyMessage;
 import dao.ProductDAO;
 

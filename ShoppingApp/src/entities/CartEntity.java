@@ -10,8 +10,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.sun.mail.iap.ByteArray;
-
 @Entity
 @Table(name = "Cart")
 public class CartEntity {
@@ -20,12 +18,13 @@ public class CartEntity {
 	@GenericGenerator(name = "kaugen", strategy = "increment")
 	@GeneratedValue(generator = "kaugen")
 	private int id;
-	private byte[] cartContent;
+	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customerid")
 	private CustomersEntity customer;
 
+	private String cartContent;
 	public CustomersEntity getCustomer() {
 		return customer;
 	}
@@ -42,12 +41,13 @@ public class CartEntity {
 		this.id = id;
 	}
 
-	public byte[] getCartContent() {
+	public String getCartContent() {
 		return cartContent;
 	}
 
-	public void setCartContent(byte[] cartContent) {
+	public void setCartContent(String cartContent) {
 		this.cartContent = cartContent;
 	}
+
 
 }

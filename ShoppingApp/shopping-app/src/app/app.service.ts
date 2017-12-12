@@ -7,11 +7,9 @@ import { Cart } from './ProductList/cart';
 
 @Injectable()
 export class AppService {
-    constructor(private _http: Http) {
 
-    }
     public navigatedfromCart = false;
-    public cartContent:Cart[] = [];
+    public cartContent: Cart[] = [];
     public productCountInCart = 0;
     public showCustomerDropdown = false;
     public sortByForProduct = "productname";
@@ -22,6 +20,11 @@ export class AppService {
     public isCustomerOrderDetails = false;
     public isProductsDisplay = true;
     public isenableRouterOutlet = false;
+
+    constructor(private _http: Http) {
+        console.log(this.cartContent);
+
+    }
     rowCount() {
         const url = 'http://localhost:8180/ShoppingApp/api/hello/rowCount/';
         let headers = new Headers();
@@ -57,13 +60,13 @@ export class AppService {
     }
 
 
-    getproductDescription(productId : number){
+    getproductDescription(productId: number) {
         const url = 'http://localhost:8180/ShoppingApp/api/customer/productDescription/';
 
-        return this._http.post(url, {productId}).map(res => res.json());
+        return this._http.post(url, { productId }).map(res => res.json());
     }
 
 
-    
+
 
 }

@@ -20,18 +20,16 @@ select * from orders where customerid = 1
 select * from product where  supplierid = 1
 select * from ORDERITEM where productid=1
 select * from Cart
+
  drop table cart
+
 create table Cart (
 id int ,
 customerid int not null,
-
-productid int not null,
-unitprice decimal(12,2) not null,
-quantity int not null,
+cartcontent varchar2(500),
 primary key (id),
-foreign key(customerid) references customer(id),
-foreign key(productid) references product(id))
-
+foreign key(customerid) references customer(id)
+)
 create table Cart (
 id int ,
 customerid int not null,

@@ -46,50 +46,32 @@ public class ProductDAO extends DBConnection {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
-			// query.setInteger("id", cartContent.getCustomerId());
-
 			Gson gson = new Gson();
 			Type type = new TypeToken<List<Cart>>() {
 			}.getType();
-			// System.out.println("CONVERT TO STRING");
-			//
-			// System.out.println(gson.toJson(cartContent.getCart(), type));
-			String json = gson.toJson(cartContent.getCart());
-			System.out.println(json);
-
-			if (resultSet.next()) {
-				System.out.println(resultSet.getInt(1));
-				cartEntity = (CartEntity) session.get(CartEntity.class, resultSet.getInt(1));
-//				List<Cart> subcart = gson.fromJson(cartEntity.getCartContent(), type); // Cart
-				cartEntity.setCartContent(gson.toJson(cartContent.getCart()));																				// in
-																								// DB
-
-			} else {
-				System.out.println("IN PRODUCT DAO");
+			String cartJsonString = gson.toJson(cartContent.getCart());
+			
+			session.beginTransaction();
+			
+			if(resultSet.next()){
+			cartEntity = (CartEntity) session.get(CartEntity.class, resultSet.getInt(1));
+			cartEntity.setCartContent(cartJsonString);
+			r = new ReplyMessage();
+			r.setMessage("Quantity Updated as product was already in cart ");
+			}
+			else{
 				cartEntity = new CartEntity();
 				cartEntity.setCustomer(customer);
-				cartEntity.setCartContent(gson.toJson(cartContent.getCart()));
-			}
-
-			/*
-			 * Convert Java Object to JSON String TRy Using Higher version of
-			 * GSON
-			 */
-			/* Convert JSON string to Java Object */
-			// List<Task> fromJson = gson.fromJson(json, type);
-
-			// cart.setCartContent(json);
-
-			session.beginTransaction();
-			Integer id = (Integer) session.save(cartEntity);
-			session.getTransaction().commit();
-			r = new ReplyMessage();
-			session.close();
-			if (id != null) {
+				cartEntity.setCartContent(cartJsonString);
+				Integer id = (Integer) session.save(cartEntity);
+				r = new ReplyMessage();
 				r.setMessage("Product added to cart");
-			} else {
-				r.setMessage("Some error occured");
 			}
+
+			
+			
+			session.getTransaction().commit();
+			session.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -120,15 +102,14 @@ public class ProductDAO extends DBConnection {
 		return count;
 	}
 
-	public List<Object> getProductsInCart(Cart cart) {
-		List<Object> list = new ArrayList<>();
+	public List<Cart> getProductsInCart(Cart cart) {
+		List<Cart> cartlist = null;
 		final SessionFactory factory;
 		try {
 			Connection connection = makeConnection();
 			factory = ((AnnotationConfiguration) new AnnotationConfiguration().configure())
 					.addAnnotatedClass(CartEntity.class).buildSessionFactory();
 			/* Add product count in a list to be returned */
-			list.add(new ProductDAO().productCountInCart(cart));
 
 			Session session = factory.openSession();
 			String query = "select * from cart where customerid = " + cart.get_customerId();
@@ -137,14 +118,14 @@ public class ProductDAO extends DBConnection {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			Gson gson = new Gson();
-			Type type = new TypeToken<CartContent>() {
+			Type type = new TypeToken<List<Cart>>() {
 			}.getType();
 
 			while (resultSet.next()) {
-				System.out.println("CartFromDb");
 				String json = resultSet.getString(3);
-				CartContent cartContent = gson.fromJson(json, type);
-				list.add(cartContent);
+				cartlist = new ArrayList<>();
+				cartlist = gson.fromJson(json, type);
+
 			}
 
 			session.close();
@@ -152,7 +133,7 @@ public class ProductDAO extends DBConnection {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return list;
+		return cartlist;
 	}
 }
 

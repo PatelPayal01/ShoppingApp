@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { AppService } from "../app.service";
 import { Cart } from "../ProductList/cart";
 import { Router } from "@angular/router";
+import { CartService } from "./cart.service";
+import { log } from "util";
 
 @Component({
     selector: 'cart',
@@ -11,24 +13,29 @@ export class CartComponent implements OnInit {
     subtotalArray: any[] = [];
     unitPriceArray: any = [];
     totalCost;
-    constructor(private _appservice: AppService ,private router : Router) {
+    constructor(private _appservice: AppService, private router: Router, private _cartservice: CartService) {
         console.log("In Cart");
+        
+
     }
 
     ngOnInit() {
 
+        var i;
+        for (i = 0; i < this._appservice.cartContent.length; i++) {
+
+            this.unitPriceArray[i] = this._appservice.cartContent[i]["_unitPrice"];
+        }
+
+
+        this.totalCost = this.unitPriceArray.reduce((a, b) => a + b);
+        console.log(this.totalCost);
+
         if (this._appservice.isLogin) {
-            //hit db and get cart content
-            
+            //hit db and get cart content and also a add session content to cartContent
+
         }
         else {
-            this._appservice.cartContent = JSON.parse(sessionStorage.getItem("productsInCart"));
-            var i;
-            for (i = 0; i < this._appservice.cartContent.length; i++) {
-
-                this.unitPriceArray[i] = this._appservice.cartContent[i]["_unitPrice"];
-            }
-            this.totalCost = this.unitPriceArray.reduce((accumulator, currentValue) => accumulator + currentValue);
 
         }
     }
@@ -39,14 +46,15 @@ export class CartComponent implements OnInit {
     }
 
 
-    buy(){
-        if(this._appservice.isLogin){
+    buy() {
+        if (this._appservice.isLogin) {
             // store  cart in database  and go to make payments
-             
+
         }
-        else{
+        else {
             this._appservice.navigatedfromCart = true;
             this.router.navigate(['/login']);
         }
     }
+
 }

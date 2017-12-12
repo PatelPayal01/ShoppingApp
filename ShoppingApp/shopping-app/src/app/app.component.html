@@ -48,8 +48,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <div class="dropdown">
                         <li>
-                            <a>
-                                <span id="login" class="adjustGlyphicon glyphicon glyphicon-user"></span>
+                            <a class="adjustGlyphicon glyphicon glyphicon-user">
+                                <span *ngIf='_appservice.isLogin' id="login" >Welcome {{_appservice.customer?.firstName}}</span>
                             </a>
                             <div *ngIf="!_appservice.showCustomerDropdown" class="dropdown-content">
                                 <a (click)="enableRouterOutlet();LoginorSignUp()">Login/SignUp</a>

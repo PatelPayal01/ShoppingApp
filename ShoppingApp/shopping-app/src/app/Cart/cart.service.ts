@@ -9,13 +9,16 @@ export class CartService {
 
     constructor(private _http: Http) { }
 
-    addProductToCart(cart, customerId) {
-        const url = 'http://localhost:8180/ShoppingApp/api/products/addProductToCart/';
+    addProductToCart(cart,customerId) {
         console.log(cart);
-        return this._http.post(url, { cart, customerId }).map(res => res.json());
+        const url = 'http://localhost:8180/ShoppingApp/api/products/addProductToCart/';
+        
+        return this._http.post(url, { cart ,customerId}).map(res => res.json());
     }
 
     getCartContent(_customerId: number) {
+        console.log("Cart service");
+        
         const url = 'http://localhost:8180/ShoppingApp/api/products/getCartContent/';
         return this._http.post(url, { _customerId }).map(res => res.json());
     }

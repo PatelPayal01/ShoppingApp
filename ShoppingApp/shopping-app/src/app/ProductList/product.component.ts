@@ -15,7 +15,6 @@ import { CartService } from "../Cart/cart.service";
 export class ProductComponent implements OnInit {
   cart;
   // cartContent :any[] = [];
-  cartIndex = -1;
   pageSizes = [5, 25, 50, 100];
   totalItems: number;
   // pager object
@@ -23,6 +22,7 @@ export class ProductComponent implements OnInit {
   pageSize: number = 10;
   // paged items
   pagedItems: any[];
+  alreadyInCart = false;
 
   constructor(private router: Router, private _appService: AppService, private pagerService: PagerService, private _cartservice: CartService) {
 
@@ -60,24 +60,64 @@ export class ProductComponent implements OnInit {
   }
 
   addProductToCart(productId, productName, price, packages, loggedIn) {
-
     this._appService.productCountInCart += 1;
-    this.cartIndex += 1;
+
+    /*check for duplicate product */
+    console.log(1);
+    
+    this.checkInCart(productId, productName, price, packages)
+    console.log(3);
+    
+    console.log(4);
+    
+    sessionStorage.setItem("productsInCart", JSON.stringify(this._appService.cartContent));
+console.log(5);
+
     if (loggedIn == false) {
-      this.cart = new Cart(productId, productName, price, packages, 1);
-      this._appService.cartContent.push(this.cart);
-      sessionStorage.setItem("productsInCart", JSON.stringify(this._appService.cartContent));
-      sessionStorage.setItem("noOfProductsInCart", "" + this._appService.productCountInCart)
+
     }
     else {
-      this.cart = new Cart(productId, productName, price, packages, 1);
-      this._appService.cartContent.push(this.cart);
-      this._cartservice.addProductToCart(this._appService.cartContent,this._appService.customer.id).subscribe(
+      this._cartservice.addProductToCart(this._appService.cartContent, this._appService.customer.id).subscribe(
         result => {
           console.log(result);
         })
     }
 
+  }
+
+  /* Check if product is already in cart ; If so increase the quantity field of that product*/
+  checkInCart(productId, productName, price, packages) {
+    
+    // for (var product of  this._appService.cartContent) {
+      
+    //   if (productId = product["_productId"]) {
+    //     console.log(2);
+    //     console.log(product);
+        
+    //     this.cart = new Cart(product["_productId"], productName, price, packages, product["_quantity"]+1);
+    //     this.alreadyInCart = true;
+    //     break
+    //   }
+      
+      
+    // }
+    for(var i = 0;i<this._appService.cartContent.length;i++){
+      if (productId = this._appService.cartContent[i]["_productId"]) {
+        console.log(this._appService.cartContent[i]);
+        
+            this._appService.cartContent[i]["_quantity"] += 1;
+            this.alreadyInCart = true;
+            break
+          }
+          
+    }
+    /* If product is not already present in cart add it to cart */
+    if (!this.alreadyInCart) {
+      this.cart = new Cart(productId, productName, price, packages, 1);
+      console.log(2);
+      this._appService.cartContent.push(this.cart);
+      
+    }
   }
 
 }

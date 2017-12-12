@@ -30,11 +30,13 @@ public class ProductService {
 
 	@POST
 	@Path("/getCartContent")
-	public List<Object> productsInCart(Cart cart) {
-		List<Object> cartContent = null;
+	public List<Cart> productsInCart(Cart cart) {
+		List<Cart> cartContent = null;
 		try {
+			System.out.println("IN PRODUCT DAO");
 			ProductDAO p = Factory.getProductDAO();
 			cartContent = p.getProductsInCart(cart);
+			System.out.println("cart size"+cartContent);
 		}
 
 		catch (Exception e) {

@@ -29,36 +29,44 @@ export class AppComponent implements OnInit {
   sortByListForProduct = ["ProductName", "UnitPrice"];
 
 
-  constructor(private router: Router, private _appservice: AppService ,private _cartservice :CartService) {
+  constructor(private router: Router, private _appservice: AppService, private _cartservice: CartService) {
   }
 
   ngOnInit() {
+
     this.router.navigate([''])
     this.isRefresh = false;
-    if (sessionStorage.getItem("username") == null) {
-      if (isNaN(parseInt(sessionStorage.getItem("noOfProductsInCart")))) {
 
-      }
-      else {
-        // this._appservice.productCountInCart = parseInt(sessionStorage.getItem("noOfProductsInCart"));
+    if (sessionStorage.getItem("username") == null) {
+      if (sessionStorage.getItem("productsInCart")) {
         this._appservice.cartContent = JSON.parse(sessionStorage.getItem("productsInCart"));
         this._appservice.productCountInCart = this._appservice.cartContent.length;
       }
     }
     else {
-      console.log("In App Component when logged in")
-      this._cartservice.getCartContent(1).subscribe(
-        result =>{
-          console.log(result)
+      this._appservice.showCustomerDropdown = true;
+      this._appservice.isLogin = true;
+      this._appservice.isProductsDisplay = true;
+
+
+      this._appservice.customer = JSON.parse(sessionStorage.getItem('customerdetails'));
+      this._appservice.isLogin = true;
+      console.log(this._appservice.cartContent);
+
+      this._cartservice.getCartContent(this._appservice.customer.id).subscribe(
+        result => {
+          this._appservice.cartContent = result;
+          this._appservice.productCountInCart = this._appservice.cartContent.length;
         }
       )
+
+      this.router.navigate(['/customer']);
     }
   }
   enableRouterOutlet() {
     this._appservice.isenableRouterOutlet = true;
   }
   LoginorSignUp() {
-    document.getElementById("login").innerHTML = "";
 
     this.isLoginOrSignUp = true;
     this._appservice.isProductsDisplay = false;
@@ -110,6 +118,9 @@ export class AppComponent implements OnInit {
   goToCart() {
 
     this._appservice.isProductsDisplay = false;
+    this._appservice.cartContent= JSON.parse(sessionStorage.getItem("productsInCart"));
+    console.log(this._appservice.cartContent);
+    
     this.router.navigate(['/cart']);
   }
 

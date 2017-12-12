@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="D:/workspace/ShoppingApp/ShoppingApp/WebContent/WEB-INF/lib/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="D:/workspace/ShoppingApp/ShoppingApp/WebContent/WEB-INF/lib/resteasy-jaxrs-3.0.8.Final.jar"/>
 	<classpathentry kind="lib" path="D:/workspace/ShoppingApp/ShoppingApp/WebContent/WEB-INF/lib/xerces-2.6.2.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/ShoppingApp/ShoppingApp/WebContent/WEB-INF/lib/gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

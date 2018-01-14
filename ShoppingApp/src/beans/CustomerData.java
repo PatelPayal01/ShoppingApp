@@ -6,9 +6,23 @@ public class CustomerData {
 	private Integer endIndex;
 	private String sortByForCustomer;
 	private String sortByForProduct;
+	private String searchText;
+	
+
 
 	public CustomerData() {
 	}
+
+	
+	public String getSearchText() {
+		return searchText;
+	}
+
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
 
 	public String getSortByForCustomer() {
 		return sortByForCustomer;

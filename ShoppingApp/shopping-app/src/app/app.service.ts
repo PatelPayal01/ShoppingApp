@@ -8,6 +8,8 @@ import { Cart } from './ProductList/cart';
 @Injectable()
 export class AppService {
 
+    public totalItems = 0;
+    public pagedItems:any[];
     public navigatedfromCart = false;
     public cartContent: Cart[] = [];
     public productCountInCart = 0;
@@ -34,22 +36,17 @@ export class AppService {
 
     }
 
-    // numberofProductsInCart(customerId) {
-    //     const url = 'http://localhost:8180/ShoppingApp/api/products/productsInCart/';
-
-    //     return this._http.post(url, {customerId }).map(res => res.json());
-    // }
-
     getCustomerList(custOrProd: string, startIndex: number, endIndex: number, sortByForCustomer: string) {
         const url = 'http://localhost:8180/ShoppingApp/api/hello/paginateData/';
-
+        
         return this._http.post(url, { custOrProd, startIndex, endIndex, sortByForCustomer }).map(res => res.json());
     }
-
-    getProductList(custOrProd: string, startIndex: number, endIndex: number, sortByForProduct: string) {
+    
+    getProductList(custOrProd: string, startIndex: number, endIndex: number, sortByForProduct: string,searchText:string) {
+        console.log("pag service");
         const url = 'http://localhost:8180/ShoppingApp/api/hello/paginateData/';
 
-        return this._http.post(url, { custOrProd, startIndex, endIndex, sortByForProduct }).map(res => res.json());
+        return this._http.post(url, { custOrProd, startIndex, endIndex, sortByForProduct,searchText }).map(res => res.json());
     }
 
 
@@ -66,6 +63,13 @@ export class AppService {
         return this._http.post(url, { productId }).map(res => res.json());
     }
 
+    searchProduct(searchProduct){
+        const url = 'http://localhost:8180/ShoppingApp/api/products/searchProduct/';
+        console.log(searchProduct);
+        
+                return this._http.post(url, searchProduct).map(res => res.json()); 
+
+    }
 
 
 

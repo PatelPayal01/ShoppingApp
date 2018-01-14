@@ -13,6 +13,7 @@ import { CartService } from "../Cart/cart.service";
 })
 
 export class ProductComponent implements OnInit {
+  @Input() searchTextinChild;
   cart;
   // cartContent :any[] = [];
   pageSizes = [5, 25, 50, 100];
@@ -48,8 +49,7 @@ export class ProductComponent implements OnInit {
     let to = page * this.pageSize;
 
 
-
-    this._appService.getProductList("product", from, to, this._appService.sortByForProduct).subscribe(
+this._appService.getProductList("product",from,to,"productname",this.searchTextinChild).subscribe(
       result => {
         this.totalItems = result[0];
 
@@ -64,14 +64,14 @@ export class ProductComponent implements OnInit {
 
     /*check for duplicate product */
     console.log(1);
-    
+
     this.checkInCart(productId, productName, price, packages)
     console.log(3);
-    
+
     console.log(4);
-    
+
     sessionStorage.setItem("productsInCart", JSON.stringify(this._appService.cartContent));
-console.log(5);
+    console.log(5);
 
     if (loggedIn == false) {
 
@@ -87,37 +87,41 @@ console.log(5);
 
   /* Check if product is already in cart ; If so increase the quantity field of that product*/
   checkInCart(productId, productName, price, packages) {
-    
+    this.alreadyInCart = false;
     // for (var product of  this._appService.cartContent) {
-      
+
     //   if (productId = product["_productId"]) {
     //     console.log(2);
     //     console.log(product);
-        
+
     //     this.cart = new Cart(product["_productId"], productName, price, packages, product["_quantity"]+1);
     //     this.alreadyInCart = true;
     //     break
     //   }
-      
-      
+
+
     // }
-    for(var i = 0;i<this._appService.cartContent.length;i++){
-      if (productId = this._appService.cartContent[i]["_productId"]) {
-        console.log(this._appService.cartContent[i]);
-        
-            this._appService.cartContent[i]["_quantity"] += 1;
-            this.alreadyInCart = true;
-            break
-          }
-          
+    for (var i = 0; i < this._appService.cartContent.length; i++) {
+      console.log(productId);
+
+      if (productId == this._appService.cartContent[i]["_productId"]) {
+
+        console.log(this._appService.cartContent[i]["_productId"]);
+
+        this._appService.cartContent[i]["_quantity"] += 1;
+        this.alreadyInCart = true;
+        break
+      }
+
     }
+
     /* If product is not already present in cart add it to cart */
     if (!this.alreadyInCart) {
       this.cart = new Cart(productId, productName, price, packages, 1);
       console.log(2);
       this._appService.cartContent.push(this.cart);
-      
+
     }
   }
 
-}
+} 

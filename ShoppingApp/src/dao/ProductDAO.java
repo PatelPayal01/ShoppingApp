@@ -18,7 +18,9 @@ import com.google.gson.reflect.TypeToken;
 
 import beans.Cart;
 import beans.CartContent;
+import beans.ProductDescription;
 import beans.ReplyMessage;
+import beans.SearchProduct;
 import connection.DBConnection;
 import entities.CartEntity;
 import entities.CustomersEntity;
@@ -50,16 +52,15 @@ public class ProductDAO extends DBConnection {
 			Type type = new TypeToken<List<Cart>>() {
 			}.getType();
 			String cartJsonString = gson.toJson(cartContent.getCart());
-			
+
 			session.beginTransaction();
-			
-			if(resultSet.next()){
-			cartEntity = (CartEntity) session.get(CartEntity.class, resultSet.getInt(1));
-			cartEntity.setCartContent(cartJsonString);
-			r = new ReplyMessage();
-			r.setMessage("Quantity Updated as product was already in cart ");
-			}
-			else{
+
+			if (resultSet.next()) {
+				cartEntity = (CartEntity) session.get(CartEntity.class, resultSet.getInt(1));
+				cartEntity.setCartContent(cartJsonString);
+				r = new ReplyMessage();
+				r.setMessage("Cart Updated");
+			} else {
 				cartEntity = new CartEntity();
 				cartEntity.setCustomer(customer);
 				cartEntity.setCartContent(cartJsonString);
@@ -68,8 +69,6 @@ public class ProductDAO extends DBConnection {
 				r.setMessage("Product added to cart");
 			}
 
-			
-			
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -134,6 +133,45 @@ public class ProductDAO extends DBConnection {
 			// TODO: handle exception
 		}
 		return cartlist;
+	}
+
+	public List<ProductDescription> searchProducts(SearchProduct searchProduct) {
+		List<ProductDescription> list = new ArrayList<>();
+		final SessionFactory factory;
+		try {
+
+			Connection connection = makeConnection();
+			factory = ((AnnotationConfiguration) new AnnotationConfiguration().configure())
+					.addAnnotatedClass(ProductEntity.class).buildSessionFactory();
+			String sortBy = searchProduct.getPaginatedata().getSortByForProduct();
+			
+			String whereClause="";
+			if (searchProduct.getSearchText() != null)
+				if (searchProduct.getSearchText().trim().length() > 0)
+					whereClause = "where lower(productname) " + "like '%" + searchProduct.getSearchText().toLowerCase() + "%'";
+			
+//			String query = "select * from (select a.*, rownum rnum from (select * from product where lower(productname) "
+//					+ "like '%"+searchProduct.getSearchText().toLowerCase()+"%'  order by "+sortBy+" ) a where rownum <= ?)  where rnum >= ?";
+			String query = "select * from (select a.*, rownum rnum from (select * from product " + whereClause
+					+ "  order by " + sortBy + " ) a where rownum <= ?)  where rnum >= ?";
+			
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+//			preparedStatement.setString(1,searchProduct.getSearchText());
+			preparedStatement.setInt(1, searchProduct.getPaginatedata().getEndIndex());
+			preparedStatement.setInt(2, searchProduct.getPaginatedata().getStartIndex());
+
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()){ 	
+				ProductDescription p = new ProductDescription(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3),resultSet.getFloat(4),resultSet.getString(5));
+				list.add(p);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
 

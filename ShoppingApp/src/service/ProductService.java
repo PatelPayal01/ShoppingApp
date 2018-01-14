@@ -8,7 +8,10 @@ import javax.ws.rs.Path;
 import Factory.Factory;
 import beans.Cart;
 import beans.CartContent;
+import beans.CustomerData;
+import beans.ProductDescription;
 import beans.ReplyMessage;
+import beans.SearchProduct;
 import dao.ProductDAO;
 
 @Path("/products")
@@ -33,15 +36,29 @@ public class ProductService {
 	public List<Cart> productsInCart(Cart cart) {
 		List<Cart> cartContent = null;
 		try {
-			System.out.println("IN PRODUCT DAO");
 			ProductDAO p = Factory.getProductDAO();
 			cartContent = p.getProductsInCart(cart);
-			System.out.println("cart size"+cartContent);
+			System.out.println("cart size" + cartContent);
 		}
 
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 		return cartContent;
+	}
+
+	@POST
+	@Path("/searchProduct")
+	public List<ProductDescription> searchProduct(SearchProduct searchProduct) {
+		List<ProductDescription> list = null;
+		try {
+			ProductDAO p = Factory.getProductDAO();
+			list = p.searchProducts(searchProduct);
+		}
+
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
 	}
 }

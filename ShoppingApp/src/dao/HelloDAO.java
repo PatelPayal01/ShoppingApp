@@ -82,11 +82,22 @@ public class HelloDAO  extends DBConnection{
 			}
 
 			list.add(dataCount(custOrProd));
-
-			String query = "select * from (select a.*, rownum rnum from (select * from " + custOrProd
-					+ " order by "+sortby+" ) a where rownum <= ?)  where rnum >= ?";
+			
+			System.out.println(customerData.getSearchText());
+			String whereClause="";
+			if (customerData.getSearchText() != null)
+				if (customerData.getSearchText().trim().length() > 0){
+					System.out.println(customerData.getSearchText());
+					whereClause = "where lower(productname) " + "like '%" + customerData.getSearchText().toLowerCase() + "%'";}
+			
+//			String query = "select * from (select a.*, rownum rnum from (select * from product where lower(productname) "
+//					+ "like '%"+searchProduct.getSearchText().toLowerCase()+"%'  order by "+sortBy+" ) a where rownum <= ?)  where rnum >= ?";
+			String query = "select * from (select a.*, rownum rnum from (select * from product " + whereClause
+					+ "  order by " + sortby + " ) a where rownum <= ?)  where rnum >= ?";
+			
+//			String query = "select * from (select a.*, rownum rnum from (select * from " + custOrProd
+//					+ " order by "+sortby+" ) a where rownum <= ?)  where rnum >= ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
-//			preparedStatement.setString(1, sortby);
 			preparedStatement.setInt(1, endIndex);
 			preparedStatement.setInt(2, startIndex);
 

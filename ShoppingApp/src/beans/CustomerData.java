@@ -12,7 +12,7 @@ public class CustomerData {
 
 	public CustomerData() {
 	}
-
+	
 	
 	public String getSearchText() {
 		return searchText;
